@@ -1,12 +1,11 @@
 <template>
-  <v-app>
+  <v-app class="flex-column">
     <app-bar></app-bar>
 
     <v-main
       :style="{
         marginTop: marginTop,
         transition: '.3s cubic-bezier(.25,.8,.5,1)',
-        overflow: 'hidden',
       }"
     >
       <router-view />
