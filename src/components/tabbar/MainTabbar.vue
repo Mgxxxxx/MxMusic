@@ -1,14 +1,13 @@
 <template>
   <div
-    style="position: fixed; bottom: 0; width: 100%"
     :style="{
-      marginBottom: isSearching('musicControl'),
+      marginBottom: isSearching ? '-49px' : '',
       transition: '.3s cubic-bezier(.25,.8,.5,1)',
     }"
   >
     <!-- 音乐控制器 -->
     <div
-      class="rounded-r-pill grey lighten-2 pa-2 mx-2 d-flex align-center justify-space-between"
+      class="rounded-r-pill grey lighten-2 pa-2 mx-2 mt-1 d-flex align-center justify-space-between"
       style="max-height: 40px"
     >
       <div class="d-inline-block text-truncate" style="max-width: 200px">
@@ -25,7 +24,6 @@
       color="green"
       height="49"
       style="justify-content: space-around"
-      :style="{ visibility: isShowTabbar ? 'visible' : 'hidden' }"
     >
       <v-btn to="/home">
         <span>首页</span>

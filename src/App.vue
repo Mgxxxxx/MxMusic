@@ -1,11 +1,12 @@
 <template>
-  <v-app class="flex-column">
+  <v-app class="flex-column" style="height: 100vh; overflow-y: hidden">
     <app-bar></app-bar>
 
     <v-main
+      class="pa-0"
       :style="{
-        marginTop: marginTop,
-        transition: '.3s cubic-bezier(.25,.8,.5,1)',
+        flex: '1',
+        overflowY: 'scroll',
       }"
     >
       <router-view />
@@ -43,12 +44,6 @@ export default {
   computed: {
     isSearch() {
       return /search/.test(this.$route.path);
-    },
-    marginTop() {
-      return this.isSearch ? "0px" : "50px";
-    },
-    viewHeight() {
-      return this.isSearch ? "calc(100% - 50px)" : "calc(100% - 90px)";
     },
   },
 };

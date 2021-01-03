@@ -1,14 +1,8 @@
 <template>
   <div
     :style="{
-      marginTop: isSearching('appbarMt'),
-      paddingBottom: isSearching('appbarPb'),
+      marginTop: isSearching ? '-49px' : '',
       transition: '.3s cubic-bezier(.25,.8,.5,1)',
-      position: 'fixed',
-      top: '0',
-      left: '0',
-      right: '0',
-      zIndex: '999',
     }"
   >
     <v-app-bar app height="49" style="position: relative" class="elevation-0">
@@ -18,12 +12,12 @@
     </v-app-bar>
 
     <!-- 搜索栏 -->
-    <div class="d-flex align-center" style="position: absolute; width: 100%">
+    <div class="d-flex align-center">
       <v-btn
         icon
         class="mr-n2"
         @click="exitSearch"
-        :style="{ display: isShowBack }"
+        :style="{ display: isSearching ? '' : 'none' }"
       >
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
@@ -44,7 +38,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 import { search, getMusicUrl } from "@/api";
 
@@ -64,7 +58,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["setShowTabbar", "setCurSong", "setPlayList"]),
+    ...mapMutations(["setCurSong", "setPlayList"]),
     async searchMusic() {
       try {
         let res = await search(this.keyWord);
@@ -92,15 +86,13 @@ export default {
       }
     },
     focusSearch() {
-      this.setShowTabbar(false);
       //若当前页面不是search页面才能进行路由导航
-      if (!/search/.test(this.$route.path)) {
+      if (!this.isSearching) {
         this.$router.push("/search");
       }
     },
     exitSearch() {
       this.keyWord = "";
-      this.setShowTabbar(true);
       this.$router.go(-1);
     },
   },
@@ -108,11 +100,6 @@ export default {
     this.$nextTick(() => {
       this.mxPlayer = this.getAudio();
     });
-  },
-  computed: {
-    isShowBack() {
-      return !this.$store.getters.getShowTabbar ? "" : "none";
-    },
   },
 };
 </script>

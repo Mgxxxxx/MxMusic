@@ -2,9 +2,6 @@ export default {
     getAudio(state) {
         return state.audio;
     },
-    getShowTabbar(state) {
-        return state.showTabbar;
-    },
     getCurSong(state) {
         return state.curSong;
     },
